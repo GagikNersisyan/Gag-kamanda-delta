@@ -1,33 +1,34 @@
 import fs from 'fs/promises';
+import { ServiceError } from '../../utils/error-handling.js';
 
-const PATH = 'src/users/users.json';
+const PATH = 'src/api/users/users.json';
 
-export const getUsers = async () => {
+export const getUsersService = async () => {
   const users = JSON.parse(await fs.readFile(PATH));
   return users;
 };
 
-export const getUser = async (index) => {
-  const users = await getUsers();
+export const getUserService = async (index) => {
+  const users = await getUsersService();
   if (users[index] == null) {
     return { massage: 'user is not exists' };
   }
   return users[index];
 };
 
-export const createUser = async (user) => {
-  const users = await getUsers();
+export const createUserService = async (user) => {
+  const users = await getUsersService();
   const found = users.find((u) => u.username === user.username);
   if (found != null) {
-    return { massage: 'Username Exists' };
+    throw new ServiceError('Username Exists', 409);
   }
   users.push(user);
   await fs.writeFile(PATH, JSON.stringify(users));
   return users;
 };
 
-export const updateUser = async (index, user) => {
-  const users = await getUsers();
+export const updateUserService = async (index, user) => {
+  const users = await getUsersService();
 
   if (users[index] == null) {
     return { massage: 'user is not exists' };
@@ -45,8 +46,8 @@ export const updateUser = async (index, user) => {
   return users;
 };
 
-export const deleteUser = async (index) => {
-  const users = await getUsers();
+export const deleteUserService = async (index) => {
+  const users = await getUsersService();
   const filtered = users.filter((user, i) => i !== index);
   await fs.writeFile(PATH, JSON.stringify(filtered));
   return filtered;
