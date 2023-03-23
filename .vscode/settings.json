@@ -5,5 +5,8 @@
 "eslint.validate": [
     "javascript"
 ],
-"files.autoSave": "afterDelay"
+"files.autoSave": "afterDelay",
+"cSpell.words": [
+    "productsname"
+]
 }
