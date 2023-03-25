@@ -16,16 +16,20 @@ export const getUserController = async (req, res) => {
 export const createUserController = async (req, res, next) => {
   try {
     const user = await createUserService(req.body);
-    res.send(user);
+    return res.send(user);
   } catch (err) {
     next(err);
   }
 };
 
-export const updateUserController = async (req, res) => {
-  const index = Number(req.params.index);
-  const user = await updateUserService(index, req.body);
-  res.send(user);
+export const updateUserController = async (req, res, next) => {
+  try {
+    const index = Number(req.params.index);
+    const user = await updateUserService(index, req.body);
+    res.send(user);
+  } catch (err) {
+    next(err);
+  }
 };
 
 export const deleteUserController = async (req, res) => {

@@ -6,7 +6,7 @@ import {
   updateUserController,
   deleteUserController,
 } from './user.controller.js';
-import { createUserValidator } from './user.validator.js';
+import { createUserValidator, updateUserValidator } from './user.validator.js';
 
 const router = Router();
 
@@ -14,9 +14,9 @@ router.get('/', getUsersController);
 
 router.get('/:index', getUserController);
 
-router.post('/', createUserValidator, createUserController);
+router.post('/', ...createUserValidator, createUserController);
 
-router.put('/:index', updateUserController);
+router.put('/:index', ...updateUserValidator, updateUserController);
 
 router.delete('/:index', deleteUserController);
 

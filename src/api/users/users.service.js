@@ -11,7 +11,7 @@ export const getUsersService = async () => {
 export const getUserService = async (index) => {
   const users = await getUsersService();
   if (users[index] == null) {
-    return { massage: 'user is not exists' };
+    throw new ServiceError('user does not exist', 404);
   }
   return users[index];
 };
@@ -20,7 +20,7 @@ export const createUserService = async (user) => {
   const users = await getUsersService();
   const found = users.find((u) => u.username === user.username);
   if (found != null) {
-    throw new ServiceError('Username Exists', 409);
+    throw new ServiceError('Username Exists', 403);
   }
   users.push(user);
   await fs.writeFile(PATH, JSON.stringify(users));
@@ -31,13 +31,13 @@ export const updateUserService = async (index, user) => {
   const users = await getUsersService();
 
   if (users[index] == null) {
-    return { massage: 'user is not exists' };
+    throw new ServiceError('user does not exist', 404);
   }
 
   if (user.username != null) {
     const found = users.find((u) => u.username === user.username);
     if (found != null) {
-      return { massage: 'Username Exists' };
+      throw new ServiceError('Username Exists', 403);
     }
   }
   users[index] = { ...users[index], ...user };
