@@ -12,12 +12,12 @@ const router = Router();
 
 router.get('/', getUsersController);
 
-router.get('/:index', getUserController);
+router.get('/:id', getUserController);
 
 router.post('/', ...createUserValidator, createUserController);
 
-router.put('/:index', ...updateUserValidator, updateUserController);
+router.put('/:id', ...updateUserValidator, updateUserController);
 
-router.delete('/:index', deleteUserController);
+router.delete('/:id', deleteUserController);
 
 export default router;

@@ -1,54 +1,31 @@
-import fs from 'fs/promises';
 import { ServiceError } from '../../utils/error-handling.js';
-
-const PATH = 'src/api/users/users.json';
+import { Users } from './user.entity.js';
 
 export const getUsersService = async () => {
-  const users = JSON.parse(await fs.readFile(PATH));
-  return users;
+  const got = await Users.find();
+  return got;
 };
 
-export const getUserService = async (index) => {
-  const users = await getUsersService();
-  if (users[index] == null) {
-    throw new ServiceError('user does not exist', 404);
-  }
-  return users[index];
+export const getUserService = async (id) => {
+  const got = await Users.findOne({ _id: id });
+  return got;
 };
 
 export const createUserService = async (user) => {
-  const users = await getUsersService();
-  const found = users.find((u) => u.username === user.username);
-  if (found != null) {
+  const got = await Users.findOne({ username: user.username });
+  if (got != null) {
     throw new ServiceError('Username Exists', 403);
   }
-  users.push(user);
-  await fs.writeFile(PATH, JSON.stringify(users));
-  return users;
+  const created = await Users.create(user);
+  return created;
 };
 
-export const updateUserService = async (index, user) => {
-  const users = await getUsersService();
-
-  if (users[index] == null) {
-    throw new ServiceError('user does not exist', 404);
-  }
-
-  if (user.username != null) {
-    const found = users.find((u) => u.username === user.username);
-    if (found != null) {
-      throw new ServiceError('Username Exists', 403);
-    }
-  }
-  users[index] = { ...users[index], ...user };
-
-  await fs.writeFile(PATH, JSON.stringify(users));
-  return users;
+export const updateUserService = async (id, user) => {
+  const updated = await Users.updateOne({ _id: id }, user);
+  return updated;
 };
 
-export const deleteUserService = async (index) => {
-  const users = await getUsersService();
-  const filtered = users.filter((user, i) => i !== index);
-  await fs.writeFile(PATH, JSON.stringify(filtered));
-  return filtered;
+export const deleteUserService = async (id) => {
+  const deleted = await Users.deleteOne({ _id: id });
+  return deleted;
 };

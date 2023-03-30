@@ -8,8 +8,7 @@ export const getUsersController = async (req, res) => {
 };
 
 export const getUserController = async (req, res) => {
-  const index = Number(req.params.index);
-  const user = await getUserService(index);
+  const user = await getUserService(req.params.id);
   res.send(user);
 };
 
@@ -24,8 +23,7 @@ export const createUserController = async (req, res, next) => {
 
 export const updateUserController = async (req, res, next) => {
   try {
-    const index = Number(req.params.index);
-    const user = await updateUserService(index, req.body);
+    const user = await updateUserService(req.params.id, req.body);
     res.send(user);
   } catch (err) {
     next(err);
@@ -33,7 +31,6 @@ export const updateUserController = async (req, res, next) => {
 };
 
 export const deleteUserController = async (req, res) => {
-  const index = Number(req.params.index);
-  const user = await deleteUserService(index);
+  const user = await deleteUserService(req.params.id);
   res.send(user);
 };
