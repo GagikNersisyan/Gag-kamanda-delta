@@ -5,8 +5,8 @@ import {
   createProductController,
   updateProductController,
   deleteProductController,
-} from './user.controller.js';
-import { createProductValidator } from './product.validator.js';
+} from './products.controller.js';
+import { createProductValidator } from './products.validator.js';
 
 const router = Router();
 

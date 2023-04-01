@@ -1,54 +1,32 @@
-import fs from 'fs/promises';
 import { ServiceError } from '../../utils/error-handling.js';
-
-const PATH = 'src/api/products/products.json';
+import { deleteProductController } from './products.controller.js';
+import { Products } from './products.entity.js';
 
 export const getProductsService = async () => {
-  const products = JSON.parse(await fs.readFile(PATH));
-  return products;
+  const got = await Products.find();
+  return got;
 };
 
-export const getProductService = async (index) => {
-  const products = await getProductsService();
-  if (products[index] == null) {
-    return { massage: 'product is not exists' };
-  }
-  return products[index];
+export const getProductService = async (id) => {
+  const got = await Products.findOne({ _id: id });
+  return got;
 };
 
 export const createProductService = async (product) => {
-  const products = await getProductsService();
-  const found = products.find((u) => u.productsname === product.productsname);
-  if (found != null) {
-    throw new ServiceError('Productsname Exists', 409);
+  const got = await Products.findOne({ productsname: product.productsname });
+  if (got != null) {
+    throw new ServiceError('Productsname Exists', 403);
   }
-  products.push(product);
-  await fs.writeFile(PATH, JSON.stringify(products));
-  return products;
+  const created = await Products.create(product);
+  return created;
 };
 
-export const updateProductService = async (index, product) => {
-  const products = await getProductsService();
-
-  if (products[index] == null) {
-    return { massage: 'product is not exists' };
-  }
-
-  if (product.productsname != null) {
-    const found = products.find((u) => u.productsname === product.productsname);
-    if (found != null) {
-      return { massage: 'Productsname Exists' };
-    }
-  }
-  products[index] = { ...products[index], ...product };
-
-  await fs.writeFile(PATH, JSON.stringify(products));
-  return products;
+export const updateProductService = async (id, product) => {
+  const updated = await Products.updateOne({ _id: id }, product);
+  return updated;
 };
 
-export const deleteProductService = async (index) => {
-  const products = await getProductsService();
-  const filtered = products.filter((product, i) => i !== index);
-  await fs.writeFile(PATH, JSON.stringify(filtered));
-  return filtered;
+export const deleteProductService = async (id) => {
+  const deleted = await Products.deleteOne({ _id: id });
+  return deleted;
 };

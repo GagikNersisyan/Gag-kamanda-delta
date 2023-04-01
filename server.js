@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import usersRouter from './src/api/users/users.rout.js';
 import productsRouter from './src/api/products/products.rout.js';
 
-mongoose.connect('mongodb+srv://root:root@delta.cfefhoj.mongodb.net/?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://root:<root>@delta.onaxs8m.mongodb.net/?retryWrites=true&w=majority')
   .then(() => console.log('Connected!'));
 
 const app = express();

@@ -2,8 +2,7 @@ import { body } from 'express-validator';
 import { validationResultMiddleware } from '../../utils/validation-result.js';
 import { GENERAL_ERRORS } from '../../utils/error-messages.js';
 
-export const createUserValidator = [
-  body('email').isEmail().withMessage(GENERAL_ERRORS.emailValidation),
+export const createProductValidator = [
   body('name').notEmpty().withMessage(GENERAL_ERRORS.isRequired('Name'))
     .isLength({ min: 2, max: 15 })
     .withMessage(GENERAL_ERRORS.fieldMinMax('Name', 2, 15))
@@ -14,7 +13,6 @@ export const createUserValidator = [
   validationResultMiddleware,
 ];
 export const updateUserValidator = [
-  body('email').optional().isEmail().withMessage(GENERAL_ERRORS.emailValidation),
   body('name').optional()
     .isLength({ min: 2, max: 15 })
     .withMessage(GENERAL_ERRORS.fieldMinMax('Name', 2, 15))
