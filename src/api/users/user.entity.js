@@ -1,13 +1,9 @@
 import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
-const { ObjectId } = Schema;
 
 const User = new Schema({
-  id: ObjectId,
-  name: String,
-  username: String,
-  email: String,
-});
+  userAdditional: { type: Schema.Types.ObjectId, ref: 'UserAdditionals' },
+}, { strict: false });
 
 export const Users = mongoose.model('Users', User);

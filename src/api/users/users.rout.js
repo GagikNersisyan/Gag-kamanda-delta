@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import {
   getUsersController,
-  getUserController,
+  getUserByIdController,
   createUserController,
-  updateUserController,
-  deleteUserController,
+  updateUserByIdController,
+  deleteUserByIdController,
 } from './user.controller.js';
 import { createUserValidator, updateUserValidator } from './user.validator.js';
 
@@ -12,12 +12,12 @@ const router = Router();
 
 router.get('/', getUsersController);
 
-router.get('/:id', getUserController);
+router.get('/:id', getUserByIdController);
 
 router.post('/', ...createUserValidator, createUserController);
 
-router.put('/:id', ...updateUserValidator, updateUserController);
+router.put('/:id', ...updateUserValidator, updateUserByIdController);
 
-router.delete('/:id', deleteUserController);
+router.delete('/:id', deleteUserByIdController);
 
 export default router;

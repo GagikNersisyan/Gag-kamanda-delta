@@ -1,5 +1,9 @@
 import {
-  createUserService, deleteUserService, getUserService, getUsersService, updateUserService,
+  createUserService,
+  deleteUserByIdService,
+  getUserByIdService,
+  getUsersService,
+  updateUserByIdService,
 } from './users.service.js';
 
 export const getUsersController = async (req, res) => {
@@ -7,8 +11,8 @@ export const getUsersController = async (req, res) => {
   res.send(users);
 };
 
-export const getUserController = async (req, res) => {
-  const user = await getUserService(req.params.id);
+export const getUserByIdController = async (req, res) => {
+  const user = await getUserByIdService(req.params.id);
   res.send(user);
 };
 
@@ -21,16 +25,16 @@ export const createUserController = async (req, res, next) => {
   }
 };
 
-export const updateUserController = async (req, res, next) => {
+export const updateUserByIdController = async (req, res, next) => {
   try {
-    const user = await updateUserService(req.params.id, req.body);
+    const user = await updateUserByIdService(req.params.id, req.body);
     res.send(user);
   } catch (err) {
     next(err);
   }
 };
 
-export const deleteUserController = async (req, res) => {
-  const user = await deleteUserService(req.params.id);
+export const deleteUserByIdController = async (req, res) => {
+  const user = await deleteUserByIdService(req.params.id);
   res.send(user);
 };
