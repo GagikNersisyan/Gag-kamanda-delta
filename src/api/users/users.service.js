@@ -8,7 +8,7 @@ import {
   deleteUserByIdRepo,
 } from './user.repo.js';
 
-import { createUserAdditionalService } from '../users-additional/users-additional.service.js';
+
 
 export const getUsersService = async () => {
   const got = await getUsersRepo(null, ['userAdditional']);
