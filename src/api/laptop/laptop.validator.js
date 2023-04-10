@@ -42,6 +42,11 @@ export const createLaptopValidator = [
     .withMessage(GENERAL_ERRORS.isString)
     .isLength({ min: 2, max: 150 })
     .withMessage(GENERAL_ERRORS.fieldMinMax('GPU', 2, 150)),
+  body('file').notEmpty().withMessage(GENERAL_ERRORS.isRequired('ImageName'))
+    .isString()
+    .withMessage(GENERAL_ERRORS.isString)
+    .isLength({ min: 2, max: 150 })
+    .withMessage(GENERAL_ERRORS.fieldMinMax('Image Name', 2, 150)),
   validationResultMiddleware,
 ];
 

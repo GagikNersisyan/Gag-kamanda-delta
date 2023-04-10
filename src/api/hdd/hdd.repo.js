@@ -1,13 +1,13 @@
-import { Cases } from './case.entity.js';
+import { Hdds } from './hdd.entity.js';
 
-export const getCasesRepo = async (projection, populate) =>
-  Cases.find({}, projection, { populate });
+export const getHddsRepo = async (projection, populate) =>
+  Hdds.find({}, projection, { populate });
 
-export const getCaseByIdRepo = async (id, projection, populate) =>
-  Cases.findOne({ _id: id }, projection, { populate });
+export const getHddByIdRepo = async (id, projection, populate) =>
+  Hdds.findOne({ _id: id }, projection, { populate });
 
-export const createCaseRepo = async (Case) => Cases.create(Case);
+export const createHddRepo = async (Hdd) => Hdds.create(Hdd);
 
-export const updateCaseByIdRepo = async (id, Case) => Cases.updateOne({ _id: id }, Case);
+export const updateHddByIdRepo = async (id, Hdd) => Hdds.updateOne({ _id: id }, Hdd);
 
-export const deleteCaseByIdRepo = async (id) => Cases.deleteOne({ _id: id });
+export const deleteHddByIdRepo = async (id) => Hdds.deleteOne({ _id: id });

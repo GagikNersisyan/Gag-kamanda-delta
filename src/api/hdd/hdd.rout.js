@@ -1,23 +1,23 @@
 import { Router } from 'express';
 import {
-  getCasesController,
-  getCaseByIdController,
-  createCaseController,
-  updateCaseByIdController,
-  deleteCaseByIdController,
-} from '.case.controller.js';
-import { createCaseValidator, updateCaseValidator } from './case.validator.js';
+  getHddsController,
+  getHddByIdController,
+  createHddController,
+  updateHddByIdController,
+  deleteHddByIdController,
+} from './hdd.controller.js';
+import { createHddValidator, updateHddValidator } from './hdd.validator.js';
 
 const router = Router();
 
-router.get('/', getCasesController);
+router.get('/', getHddsController);
 
-router.get('/:id', getCaseByIdController);
+router.get('/:id', getHddByIdController);
 
-router.post('/', ...createCaseValidator, createCaseController);
+router.post('/', ...createHddValidator, createHddController);
 
-router.put('/:id', ...updateCaseValidator, updateCaseByIdController);
+router.put('/:id', ...updateHddValidator, updateHddByIdController);
 
-router.delete('/:id', deleteCaseByIdController);
+router.delete('/:id', deleteHddByIdController);
 
 export default router;

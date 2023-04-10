@@ -7,12 +7,12 @@ import {
 } from './laptop.repo.js';
 
 export const getLaptopsService = async () => {
-  const got = await getLaptopsRepo();
+  const got = await getLaptopsRepo(null, ['file']);
   return got;
 };
 
 export const getLaptopByIdService = async (id) => {
-  const got = await getLaptopByIdRepo(id);
+  const got = await getLaptopByIdRepo(id, null, ['file']);
   return got;
 };
 

@@ -2,7 +2,7 @@ import { body } from 'express-validator';
 import { validationResultMiddleware } from '../../utils/validation-result.js';
 import { GENERAL_ERRORS } from '../../utils/error-messages.js';
 
-export const createMouseValidator = [
+export const createSsdValidator = [
     body('brand').notEmpty().withMessage(GENERAL_ERRORS.isRequired('Brand'))
         .isLength({ min: 2, max: 15 })
         .withMessage(GENERAL_ERRORS.fieldMinMax('Name', 2, 15))
@@ -15,9 +15,10 @@ export const createMouseValidator = [
         .withMessage(GENERAL_ERRORS.fieldMinMax('Name', 2, 15))
         .isAlpha()
         .withMessage(GENERAL_ERRORS.isAlpha),
-    body('memory').notEmpty().withMessage(GENERAL_ERRORS.isRequired('Memory'))
+    body('memory').notEmpty().withMessage(GENERAL_ERRORS.isRequired('Memory')),
+    validationResultMiddleware
 ]
-export const updateMouseValidator = [
+export const updateSsdValidator = [
     body('brand').notEmpty().withMessage(GENERAL_ERRORS.isRequired('Brand'))
         .isLength({ min: 2, max: 15 })
         .withMessage(GENERAL_ERRORS.fieldMinMax('Name', 2, 15))
@@ -30,5 +31,6 @@ export const updateMouseValidator = [
         .withMessage(GENERAL_ERRORS.fieldMinMax('Name', 2, 15))
         .isAlpha()
         .withMessage(GENERAL_ERRORS.isAlpha),
-    body('memory').notEmpty().withMessage(GENERAL_ERRORS.isRequired('Memory'))
-]
+    body('memory').notEmpty().withMessage(GENERAL_ERRORS.isRequired('Memory')),
+    validationResultMiddleware
+];

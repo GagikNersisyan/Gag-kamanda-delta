@@ -5,7 +5,7 @@ import {
   createCaseController,
   updateCaseByIdController,
   deleteCaseByIdController,
-} from '.case.controller.js';
+} from './case.controller.js';
 import { createCaseValidator, updateCaseValidator } from './case.validator.js';
 
 const router = Router();
