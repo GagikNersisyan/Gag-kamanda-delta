@@ -28,4 +28,4 @@ router.post('/', upload.single('uploaded_file'), createFileController);
 
 router.delete('/:id', deleteFileByIdController);
 
-export default router
+export default router;
