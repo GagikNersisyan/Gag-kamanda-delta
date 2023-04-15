@@ -9,11 +9,12 @@ import HddsRouter from './src/api/hdd/hdd.rout.js';
 import RamsRouter from './src/api/ram/ram.rout.js';
 import PcsRouter from './src/api/pc/pc.rout.js';
 
-mongoose.connect('mongodb+srv://root:root@delta.onaxs8m.mongodb.net/?retryWrites=true&w=majority')
-  .then(() => console.log('Connected!'));
+const DB_URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}
+@delta.cfefhoj.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
+mongoose.connect(DB_URL).then(() => console.log('Connected!'));
 
 const app = express();
-const port =  3000;
+const port =  3000 || process.env.PORT
 
 app.use(express.json());
 app.use(express.static('./uploads'));
