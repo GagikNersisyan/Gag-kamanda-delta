@@ -1,8 +1,9 @@
 import bcrypt from 'bcrypt';
 
-const saltRounds = 10;
-
 export const hashPassword = (password) => {
-  const hash = bcrypt.hashSync(password, saltRounds);
+  const hash = bcrypt.hashSync(password, Number(process.env.SALT_ROUNDS));
   return hash;
 };
+
+export const comparePassword = (loginPassword, userPassword) =>
+  bcrypt.compare(loginPassword, userPassword);
