@@ -7,31 +7,32 @@ import {
   updateUserByIdRepo,
   deleteUserByIdRepo,
 } from './user.repo.js';
-
-
+import { hashPassword } from '../../services/bcrypt.js';
 
 export const getUsersService = async () => {
-  const got = await getUsersRepo(null, ['userAdditional']);
+  const got = await getUsersRepo();
   return got;
 };
 
 export const getUserByIdService = async (id) => {
-  const got = await getUserByIdRepo(id, null, ['userAdditional']);
+  const got = await getUserByIdRepo(id);
+  return got;
+};
+
+export const getUserByUsernameService = async (username) => {
+  const got = await getUserByUsernameRepo(username);
   return got;
 };
 
 export const createUserService = async (user) => {
-  const { school, ...rest } = user;
-
-  const got = await getUserByUsernameRepo(rest.username, ['id']);
+  const got = await getUserByUsernameService(user.username);
   if (got != null) {
     throw new ServiceError('Username Exists', 403);
   }
-
-  const additionalData = await createUserAdditionalService({ school });
+  const password = hashPassword(user.password);
   const created = await createUserRepo({
-    ...rest,
-    userAdditional: additionalData.id,
+    ...user,
+    password,
   });
   return created;
 };

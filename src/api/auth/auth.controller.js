@@ -1,8 +1,17 @@
-import { signupService } from './auth.service.js';
+import { signupService, signinService } from './auth.service.js';
 
 export const signupController = async (req, res, next) => {
   try {
-    const pc = await signupService(req.body);
+    await signupService(req.body);
+    return res.send({ massage: 'success' });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const signinController = async (req, res, next) => {
+  try {
+    const pc = await signinService(req.body);
     return res.send(pc);
   } catch (err) {
     next(err);

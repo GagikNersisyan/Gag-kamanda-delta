@@ -33,4 +33,3 @@ export const updateUserValidator = [
     .isAlpha()
     .withMessage(GENERAL_ERRORS.isAlpha),
   validationResultMiddleware];
-

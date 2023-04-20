@@ -6,8 +6,8 @@ export const getKeyboardsRepo = async (projection, populate) =>
 export const getKeyboardByIdRepo = async (id, projection, populate) =>
   Keyboards.findOne({ _id: id }, projection, { populate });
 
-export const createKeyboardRepo = async (Keyboard) => Keyboards.create(Keyboard);
+export const createKeyboardRepo = async (keyboard) => Keyboards.create(keyboard);
 
-export const updateKeyboardByIdRepo = async (id, Keyboard) => Keyboards.updateOne({ _id: id }, Keyboard);
+export const updateKeyboardByIdRepo = async (id, keyboard) => Keyboards.updateOne({ _id: id }, keyboard);
 
 export const deleteKeyboardByIdRepo = async (id) => Keyboards.deleteOne({ _id: id });

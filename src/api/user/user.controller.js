@@ -1,10 +1,9 @@
 import {
-  createUserService,
   deleteUserByIdService,
   getUserByIdService,
   getUsersService,
   updateUserByIdService,
-} from './users.service.js';
+} from './user.service.js';
 
 export const getUsersController = async (req, res) => {
   const users = await getUsersService();
@@ -14,15 +13,6 @@ export const getUsersController = async (req, res) => {
 export const getUserByIdController = async (req, res) => {
   const user = await getUserByIdService(req.params.id);
   res.send(user);
-};
-
-export const createUserController = async (req, res, next) => {
-  try {
-    const user = await createUserService(req.body);
-    return res.send(user);
-  } catch (err) {
-    next(err);
-  }
 };
 
 export const updateUserByIdController = async (req, res, next) => {

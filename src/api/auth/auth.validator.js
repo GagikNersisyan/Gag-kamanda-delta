@@ -29,3 +29,16 @@ export const signupValidator = [
     .isStrongPassword(),
   validationResultMiddleware,
 ];
+
+export const signinValidator = [
+  body('username').notEmpty().withMessage(GENERAL_ERRORS.isRequired('Username'))
+    .isString()
+    .withMessage(GENERAL_ERRORS.isString)
+    .isLength({ min: 2, max: 15 })
+    .withMessage(GENERAL_ERRORS.fieldMinMax('Name', 2, 15)),
+  body('password').notEmpty().withMessage(GENERAL_ERRORS.isRequired('Password'))
+    .isString()
+    .withMessage(GENERAL_ERRORS.isString)
+    .isStrongPassword(),
+  validationResultMiddleware,
+];
