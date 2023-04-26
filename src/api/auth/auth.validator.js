@@ -31,14 +31,22 @@ export const signupValidator = [
 ];
 
 export const signinValidator = [
-  body('username').notEmpty().withMessage(GENERAL_ERRORS.isRequired('Username'))
-    .isString()
-    .withMessage(GENERAL_ERRORS.isString)
-    .isLength({ min: 2, max: 15 })
-    .withMessage(GENERAL_ERRORS.fieldMinMax('Name', 2, 15)),
+  body('email').isEmail().withMessage(GENERAL_ERRORS.emailValidation),
   body('password').notEmpty().withMessage(GENERAL_ERRORS.isRequired('Password'))
     .isString()
     .withMessage(GENERAL_ERRORS.isString)
     .isStrongPassword(),
+  validationResultMiddleware,
+];
+
+export const verifyValidator = [
+  body('token').notEmpty().withMessage(GENERAL_ERRORS.isRequired('token'))
+    .isJWT(),
+
+  validationResultMiddleware,
+];
+
+export const newVerificationValidator = [
+  body('email').isEmail().withMessage(GENERAL_ERRORS.emailValidation),
   validationResultMiddleware,
 ];

@@ -4,8 +4,9 @@ import { getUserByIdService } from '../api/user/user.service.js';
 
 export const authorization = async (req, res, next) => {
   try {
-    const token = req.header('authorization').replace('Bearer ', '');
+    console.log('token___', req.header('authorization'));
 
+    const token = req.header('authorization').replace('Bearer ', '');
     const decoded = verifyToken(token);
 
     const user = await getUserByIdService(decoded.id);
@@ -17,6 +18,7 @@ export const authorization = async (req, res, next) => {
       firstName: user.firstName,
       lastName: user.lastName,
       username: user.username,
+      password: user.password,
     };
 
     next();

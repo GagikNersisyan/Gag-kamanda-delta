@@ -1,3 +1,4 @@
+
 export const GENERAL_ERRORS = {
   isString: 'Field must be string',
   isNumber: 'Field must be number',
@@ -9,6 +10,9 @@ export const GENERAL_ERRORS = {
   firstLetterUppercase: 'First letter must be Uppercase',
   isAlpha: 'field No contain symbols',
 };
-export const USER_ERRORS = {
 
+export const USER_ERRORS = {
+  lettersInAge: 'Age must contain only numbers!!',
 };
+
+export const PRODUCT_ERRORS = {};

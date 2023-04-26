@@ -2,7 +2,7 @@ import { ServiceError } from '../../utils/error-handling.js';
 import {
   getUsersRepo,
   getUserByIdRepo,
-  getUserByUsernameRepo,
+  getUserByUsernameRepo as getUserByEmailRepo,
   createUserRepo,
   updateUserByIdRepo,
   deleteUserByIdRepo,
@@ -19,15 +19,15 @@ export const getUserByIdService = async (id) => {
   return got;
 };
 
-export const getUserByUsernameService = async (username) => {
-  const got = await getUserByUsernameRepo(username);
+export const getUserByEmailService = async (username) => {
+  const got = await getUserByEmailRepo(username);
   return got;
 };
 
 export const createUserService = async (user) => {
-  const got = await getUserByUsernameService(user.username);
+  const got = await getUserByEmailService(user.email);
   if (got != null) {
-    throw new ServiceError('Username Exists', 403);
+    throw new ServiceError('Email Exists', 403);
   }
   const password = hashPassword(user.password);
   const created = await createUserRepo({
@@ -45,4 +45,13 @@ export const updateUserByIdService = async (id, user) => {
 export const deleteUserByIdService = async (id) => {
   const deleted = await deleteUserByIdRepo(id);
   return deleted;
+};
+
+export const changePasswordUserByIdService = async (body, user) => {
+  if (!(await comparePassword(body.oldPassword, user.password))) {
+    throw new ServiceError(' Wrong old password', 401);
+  }
+  
+  // const updated = await updateUserByIdRepo(id, user);
+  return updated;
 };

@@ -32,4 +32,5 @@ export const updateUserValidator = [
     .withMessage(GENERAL_ERRORS.firstLetterUppercase)
     .isAlpha()
     .withMessage(GENERAL_ERRORS.isAlpha),
-  validationResultMiddleware];
+  validationResultMiddleware,
+];

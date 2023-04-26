@@ -34,7 +34,7 @@ app.use('/Cases',CasesRouter);
 app.use('/Hdds',HddsRouter);
 app.use('/Rams',RamsRouter);
 app.use('/Pcs',PcsRouter);
-app.use('/Files', filesRouter);
+app.use('/files', filesRouter);
 app.use('/Auth', AuthRouter);
 app.use('/Keyboards', keyboardsRouter);
 // eslint-disable-next-line no-unused-vars
