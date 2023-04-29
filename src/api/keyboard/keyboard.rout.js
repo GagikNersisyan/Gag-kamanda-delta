@@ -1,3 +1,4 @@
+
 import { Router } from 'express';
 import {
   getKeyboardsController,
@@ -7,17 +8,18 @@ import {
   deleteKeyboardByIdController,
 } from './keyboard.controller.js';
 import { createKeyboardValidator, updateKeyboardValidator } from './keyboard.validator.js';
+import { adminAuthorization } from '../../middlewares/authorization.js';
 
 const router = Router();
 
-router.get('/', getKeyboardsController);
+router.get('/', adminAuthorization, getKeyboardsController);
 
-router.get('/:id', getKeyboardByIdController);
+router.get('/:id', adminAuthorization, getKeyboardByIdController);
 
-router.post('/', ...createKeyboardValidator, createKeyboardController);
+router.post('/', adminAuthorization, ...createKeyboardValidator, createKeyboardController);
 
-router.put('/:id', ...updateKeyboardValidator, updateKeyboardByIdController);
+router.put('/:id', adminAuthorization, ...updateKeyboardValidator, updateKeyboardByIdController);
 
-router.delete('/:id', deleteKeyboardByIdController);
+router.delete('/:id', adminAuthorization, deleteKeyboardByIdController);
 
 export default router;

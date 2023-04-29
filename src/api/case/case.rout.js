@@ -1,3 +1,4 @@
+
 import { Router } from 'express';
 import {
   getCasesController,
@@ -7,17 +8,18 @@ import {
   deleteCaseByIdController,
 } from './case.controller.js';
 import { createCaseValidator, updateCaseValidator } from './case.validator.js';
+import { adminAuthorization } from '../../middlewares/authorization.js';
 
 const router = Router();
 
-router.get('/', getCasesController);
+router.get('/', adminAuthorization, getCasesController);
 
-router.get('/:id', getCaseByIdController);
+router.get('/:id', adminAuthorization, getCaseByIdController);
 
-router.post('/', ...createCaseValidator, createCaseController);
+router.post('/', adminAuthorization, ...createCaseValidator, createCaseController);
 
-router.put('/:id', ...updateCaseValidator, updateCaseByIdController);
+router.put('/:id', adminAuthorization, ...updateCaseValidator, updateCaseByIdController);
 
-router.delete('/:id', deleteCaseByIdController);
+router.delete('/:id', adminAuthorization, deleteCaseByIdController);
 
 export default router;

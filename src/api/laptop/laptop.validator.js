@@ -1,6 +1,7 @@
+
 import { body } from 'express-validator';
 import { validationResultMiddleware } from '../../middlewares/validation-result.js';
-import { GENERAL_ERRORS } from '../../utils/error-messages.js';
+import { GENERAL_ERRORS } from '../../utils/error-message.js';
 
 export const createLaptopValidator = [
   body('brand').notEmpty().withMessage(GENERAL_ERRORS.isRequired('Brand'))
@@ -31,17 +32,6 @@ export const createLaptopValidator = [
     .withMessage(GENERAL_ERRORS.isString)
     .isLength({ min: 2, max: 150 })
     .withMessage(GENERAL_ERRORS.fieldMinMax('RAM', 2, 150)),
-  validationResultMiddleware,
-  body('ssd').notEmpty().withMessage(GENERAL_ERRORS.isRequired('SSD'))
-    .isString()
-    .withMessage(GENERAL_ERRORS.isString)
-    .isLength({ min: 2, max: 150 })
-    .withMessage(GENERAL_ERRORS.fieldMinMax('SSD', 2, 150)),
-  body('gpu').notEmpty().withMessage(GENERAL_ERRORS.isRequired('GPU'))
-    .isString()
-    .withMessage(GENERAL_ERRORS.isString)
-    .isLength({ min: 2, max: 150 })
-    .withMessage(GENERAL_ERRORS.fieldMinMax('GPU', 2, 150)),
   body('file').notEmpty().withMessage(GENERAL_ERRORS.isRequired('ImageName'))
     .isString()
     .withMessage(GENERAL_ERRORS.isString)
@@ -51,8 +41,7 @@ export const createLaptopValidator = [
 ];
 
 export const updateLaptopValidator = [
-  body('brand').optional()
-    .notEmpty().withMessage(GENERAL_ERRORS.isRequired('Brand'))
+  body('brand').optional().notEmpty().withMessage(GENERAL_ERRORS.isRequired('Brand'))
     .isLength({ min: 2, max: 15 })
     .withMessage(GENERAL_ERRORS.fieldMinMax('Name', 2, 15))
     .matches(/^[A-Z]/)
@@ -80,15 +69,10 @@ export const updateLaptopValidator = [
     .withMessage(GENERAL_ERRORS.isString)
     .isLength({ min: 2, max: 150 })
     .withMessage(GENERAL_ERRORS.fieldMinMax('RAM', 2, 150)),
+  body('file').optional().notEmpty().withMessage(GENERAL_ERRORS.isRequired('ImageName'))
+    .isString()
+    .withMessage(GENERAL_ERRORS.isString)
+    .isLength({ min: 2, max: 150 })
+    .withMessage(GENERAL_ERRORS.fieldMinMax('Image Name', 2, 150)),
   validationResultMiddleware,
-  body('ssd').optional().notEmpty().withMessage(GENERAL_ERRORS.isRequired('SSD'))
-    .isString()
-    .withMessage(GENERAL_ERRORS.isString)
-    .isLength({ min: 2, max: 150 })
-    .withMessage(GENERAL_ERRORS.fieldMinMax('SSD', 2, 150)),
-  body('gpu').optional().notEmpty().withMessage(GENERAL_ERRORS.isRequired('GPU'))
-    .isString()
-    .withMessage(GENERAL_ERRORS.isString)
-    .isLength({ min: 2, max: 150 })
-    .withMessage(GENERAL_ERRORS.fieldMinMax('GPU', 2, 150)),
-  validationResultMiddleware];
+];

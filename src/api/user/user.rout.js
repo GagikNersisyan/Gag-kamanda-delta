@@ -4,17 +4,21 @@ import {
   getUserByIdController,
   updateUserByIdController,
   deleteUserByIdController,
+  createAdminController
 } from './user.controller.js';
-import { updateUserValidator } from './user.validator.js';
+import { updateUserValidator,createUserValidator } from './user.validator.js';
+import { adminAuthorization } from '../../middlewares/authorization.js';
 
 const router = Router();
 
-router.get('/', getUsersController);
+router.get('/',adminAuthorization, getUsersController);
 
-router.get('/:id', getUserByIdController);
+router.get('/:id',adminAuthorization, getUserByIdController);
 
-router.put('/:id', ...updateUserValidator, updateUserByIdController);
+router.post('/',adminAuthorization, ...createUserValidator,createAdminController)
 
-router.delete('/:id', deleteUserByIdController);
+router.put('/:id',adminAuthorization, ...updateUserValidator, updateUserByIdController);
+
+router.delete('/:id',adminAuthorization, deleteUserByIdController);
 
 export default router;

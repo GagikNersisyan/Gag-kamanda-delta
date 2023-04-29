@@ -1,3 +1,4 @@
+
 import { Router } from 'express';
 import {
   getLaptopsController,
@@ -7,17 +8,18 @@ import {
   deleteLaptopByIdController,
 } from './laptop.controller.js';
 import { createLaptopValidator, updateLaptopValidator } from './laptop.validator.js';
+import { adminAuthorization } from '../../middlewares/authorization.js';
 
 const router = Router();
 
-router.get('/', getLaptopsController);
+router.get('/', adminAuthorization, getLaptopsController);
 
-router.get('/:id', getLaptopByIdController);
+router.get('/:id', adminAuthorization, getLaptopByIdController);
 
-router.post('/', ...createLaptopValidator, createLaptopController);
+router.post('/', adminAuthorization, ...createLaptopValidator, createLaptopController);
 
-router.put('/:id', ...updateLaptopValidator, updateLaptopByIdController);
+router.put('/:id', adminAuthorization, ...updateLaptopValidator, updateLaptopByIdController);
 
-router.delete('/:id', deleteLaptopByIdController);
+router.delete('/:id', adminAuthorization, deleteLaptopByIdController);
 
 export default router;

@@ -4,6 +4,7 @@ import {
   getUserByIdService,
   getUsersService,
   updateUserByIdService,
+  createAdminService
 } from './user.service.js';
 
 export const getUsersController = async (req, res) => {
@@ -41,4 +42,13 @@ export const changePasswordUserByIdController = async (req, res, next) => {
 export const deleteUserByIdController = async (req, res) => {
   const user = await deleteUserByIdService(req.params.id);
   res.send(user);
+};
+
+export const createAdminController = async (req, res, next) => {
+  try {
+    const createAdmin = await createAdminService(req.body);
+    res.send(createAdmin);
+  } catch (err) {
+    next(err);
+  }
 };

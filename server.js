@@ -12,10 +12,16 @@ import PcsRouter from './src/api/pc/pc.rout.js';
 import filesRouter from './src/api/file/file.rout.js';
 import AuthRouter from './src/api/auth/auth.rout.js';
 import keyboardsRouter from './src/api/keyboard/keyboard.rout.js';
+import { createSuperAdminSeed } from './src/seeds.js';
 
 const DB_URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}
 @delta.cfefhoj.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 mongoose.connect(DB_URL).then(() => console.log('Connected!'));
+
+if(!createSuperAdminSeed){
+  await createSuperAdminSeed();
+}
+
 
 if (!fs.existsSync('./uploads')) {
   fs.mkdirSync('./uploads');

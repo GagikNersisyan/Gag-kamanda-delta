@@ -1,3 +1,4 @@
+
 import { Router } from 'express';
 import {
   getSsdsController,
@@ -7,17 +8,18 @@ import {
   deleteSsdByIdController,
 } from './ssd.controller.js';
 import { createSsdValidator, updateSsdValidator } from './ssd.validator.js';
+import { adminAuthorization } from '../../middlewares/authorization.js';
 
 const router = Router();
 
-router.get('/', getSsdsController);
+router.get('/', adminAuthorization, getSsdsController);
 
-router.get('/:id', getSsdByIdController);
+router.get('/:id', adminAuthorization, getSsdByIdController);
 
-router.post('/', ...createSsdValidator, createSsdController);
+router.post('/', adminAuthorization, ...createSsdValidator, createSsdController);
 
-router.put('/:id', ...updateSsdValidator, updateSsdByIdController);
+router.put('/:id', adminAuthorization, ...updateSsdValidator, updateSsdByIdController);
 
-router.delete('/:id', deleteSsdByIdController);
+router.delete('/:id', adminAuthorization, deleteSsdByIdController);
 
 export default router;

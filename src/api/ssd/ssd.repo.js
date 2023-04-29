@@ -1,13 +1,13 @@
-import { Ssds } from './ssd.entity.js';
+import { SSDs } from './ssd.entity.js';
 
 export const getSsdsRepo = async (projection, populate) =>
-  Ssds.find({}, projection, { populate });
+  SSDs.find({}, projection, { populate });
 
 export const getSsdByIdRepo = async (id, projection, populate) =>
-  Ssds.findOne({ _id: id }, projection, { populate });
+  SSDs.findOne({ _id: id }, projection, { populate });
 
-export const createSsdRepo = async (Ssd) => Ssds.create(Ssd);
+export const createSsdRepo = async (ssd) => SSDs.create(ssd);
 
-export const updateSsdByIdRepo = async (id, Ssd) => Ssds.updateOne({ _id: id }, Ssd);
+export const updateSsdByIdRepo = async (id, ssd) => SSDs.updateOne({ _id: id }, ssd);
 
-export const deleteSsdByIdRepo = async (id) => Ssds.deleteOne({ _id: id });
+export const deleteSsdByIdRepo = async (id) => SSDs.softDelete({ _id: id });

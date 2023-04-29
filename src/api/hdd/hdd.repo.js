@@ -1,13 +1,14 @@
-import { Hdds } from './hdd.entity.js';
+
+import { HDDs } from './hdd.entity.js';
 
 export const getHddsRepo = async (projection, populate) =>
-  Hdds.find({}, projection, { populate });
+  HDDs.find({}, projection, { populate });
 
 export const getHddByIdRepo = async (id, projection, populate) =>
-  Hdds.findOne({ _id: id }, projection, { populate });
+  HDDs.findOne({ _id: id }, projection, { populate });
 
-export const createHddRepo = async (Hdd) => Hdds.create(Hdd);
+export const createHddRepo = async (hdd) => HDDs.create(hdd);
 
-export const updateHddByIdRepo = async (id, Hdd) => Hdds.updateOne({ _id: id }, Hdd);
+export const updateHddByIdRepo = async (id, hdd) => HDDs.updateOne({ _id: id }, hdd);
 
-export const deleteHddByIdRepo = async (id) => Hdds.deleteOne({ _id: id });
+export const deleteHddByIdRepo = async (id) => HDDs.softDelete({ _id: id });

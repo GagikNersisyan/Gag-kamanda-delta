@@ -1,32 +1,37 @@
+
+import { ServiceError } from '../../utils/error-handling.js';
 import {
-    getPcsRepo,
-    getPcByIdRepo,
-    createPcRepo,
-    updatePcByIdRepo,
-    deletePcByIdRepo,
-  } from './pc.repo.js';
-  
-  export const getPcsService = async () => {
-    const got = await getPcsRepo();
-    return got;
-  };
-  
-  export const getPcByIdService = async (id) => {
-    const got = await getPcByIdRepo(id);
-    return got;
-  };
-  
-  export const createPcService = async (Pc) => {
-    const created = await createPcRepo(Pc);
-    return created;
-  };
-  
-  export const updatePcByIdService = async (id, Pc) => {
-    const updated = await updatePcByIdRepo(id, Pc);
-    return updated;
-  };
-  
-  export const deletePcByIdService = async (id) => {
-    const deleted = await deletePcByIdRepo(id);
-    return deleted;
-  };
+  getPcId,
+  getPcs,
+  createPc,
+  updatePcId,
+  deletePcId,
+} from './pc.repo.js';
+
+export const getPcsService = async () => {
+  const got = await getPcs(null, ['file']);
+  return got;
+};
+
+export const getPcByIdService = async (id) => {
+  const getOne = await getPcId(id, null, ['file']);
+  if (getOne == null || getOne.isDeleted) {
+    throw new ServiceError('Pc not found', 403);
+  }
+  return getOne;
+};
+
+export const createPcService = async (body) => {
+  const created = await createPc(body);
+  return created;
+};
+
+export const updatePcIdService = async (id) => {
+  const updated = await updatePcId(id);
+  return updated;
+};
+
+export const deletePcIdService = async (id) => {
+  const deleted = await deletePcId(id);
+  return deleted;
+};

@@ -1,6 +1,6 @@
 import { body } from 'express-validator';
 import { validationResultMiddleware } from '../../middlewares/validation-result.js';
-import { GENERAL_ERRORS } from '../../utils/error-messages.js';
+import { GENERAL_ERRORS } from '../../utils/error-message.js';
 
 export const signupValidator = [
   body('email').isEmail().withMessage(GENERAL_ERRORS.emailValidation),

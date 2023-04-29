@@ -1,6 +1,6 @@
 import { body } from 'express-validator';
 import { validationResultMiddleware } from '../../middlewares/validation-result.js';
-import { GENERAL_ERRORS } from '../../utils/error-messages.js';
+import { GENERAL_ERRORS } from '../../utils/error-message.js';
 
 export const createUserValidator = [
   body('email').isEmail().withMessage(GENERAL_ERRORS.emailValidation),
@@ -32,5 +32,12 @@ export const updateUserValidator = [
     .withMessage(GENERAL_ERRORS.firstLetterUppercase)
     .isAlpha()
     .withMessage(GENERAL_ERRORS.isAlpha),
+  validationResultMiddleware,
+];
+
+export const changePasswordUserValidator = [
+  body('oldPassword').notEmpty().withMessage(GENERAL_ERRORS.isRequired('Old Password')),
+  body('newPassword').notEmpty().withMessage(GENERAL_ERRORS.isRequired('New Password'))
+    .isStrongPassword(),
   validationResultMiddleware,
 ];

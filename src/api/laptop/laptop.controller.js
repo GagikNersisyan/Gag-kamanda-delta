@@ -1,3 +1,4 @@
+
 import {
   createLaptopService,
   deleteLaptopByIdService,
@@ -11,9 +12,13 @@ export const getLaptopsController = async (req, res) => {
   res.send(laptops);
 };
 
-export const getLaptopByIdController = async (req, res) => {
-  const laptop = await getLaptopByIdService(req.params.id);
-  res.send(laptop);
+export const getLaptopByIdController = async (req, res, next) => {
+  try {
+    const laptop = await getLaptopByIdService(req.params.id);
+    res.send(laptop);
+  } catch (err) {
+    next(err);
+  }
 };
 
 export const createLaptopController = async (req, res, next) => {
@@ -34,7 +39,11 @@ export const updateLaptopByIdController = async (req, res, next) => {
   }
 };
 
-export const deleteLaptopByIdController = async (req, res) => {
-  const laptop = await deleteLaptopByIdService(req.params.id);
-  res.send(laptop);
+export const deleteLaptopByIdController = async (req, res, next) => {
+  try {
+    const laptop = await deleteLaptopByIdService(req.params.id);
+    res.send(laptop);
+  } catch (err) {
+    next(err);
+  }
 };

@@ -1,6 +1,6 @@
 import { body } from 'express-validator';
 import { validationResultMiddleware } from '../../middlewares/validation-result.js';
-import { GENERAL_ERRORS } from '../../utils/error-messages.js';
+import { GENERAL_ERRORS } from '../../utils/error-message.js';
 
 export const createPcValidator = [
     body('case').notEmpty().withMessage(GENERAL_ERRORS.isRequired('Case')),

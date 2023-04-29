@@ -1,32 +1,37 @@
+
+import { ServiceError } from '../../utils/error-handling.js';
 import {
-    getMousesRepo,
-    getMouseByIdRepo,
-    createMouseRepo,
-    updateMouseByIdRepo,
-    deleteMouseByIdRepo,
-  } from './mouse.repo.js';
-  
-  export const getMousesService = async () => {
-    const got = await getMousesRepo();
-    return got;
-  };
-  
-  export const getMouseByIdService = async (id) => {
-    const got = await getMouseByIdRepo(id);
-    return got;
-  };
-  
-  export const createMouseService = async (Mouse) => {
-    const created = await createMouseRepo(Mouse);
-    return created;
-  };
-  
-  export const updateMouseByIdService = async (id, Mouse) => {
-    const updated = await updateMouseByIdRepo(id, Mouse);
-    return updated;
-  };
-  
-  export const deleteMouseByIdService = async (id) => {
-    const deleted = await deleteMouseByIdRepo(id);
-    return deleted;
-  };
+  getMouseId,
+  getMouses,
+  createMouse,
+  updateMouseId,
+  deleteMouseId,
+} from './mouse.repo.js';
+
+export const getMousesService = async () => {
+  const got = await getMouses(null, ['file']);
+  return got;
+};
+
+export const getMouseByIdService = async (id) => {
+  const getOne = await getMouseId(id, null, ['file']);
+  if (getOne == null || getOne.isDeleted) {
+    throw new ServiceError('Mouse not found', 403);
+  }
+  return getOne;
+};
+
+export const createMouseService = async (body) => {
+  const created = await createMouse(body);
+  return created;
+};
+
+export const updateMouseIdService = async (id) => {
+  const updated = await updateMouseId(id);
+  return updated;
+};
+
+export const deleteMouseIdService = async (id) => {
+  const deleted = await deleteMouseId(id);
+  return deleted;
+};

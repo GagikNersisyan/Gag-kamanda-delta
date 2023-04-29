@@ -1,3 +1,4 @@
+
 import { Users } from './user.entity.js';
 
 export const getUsersRepo = async (projection, populate) =>
@@ -14,3 +15,5 @@ export const createUserRepo = async (user) => Users.create(user);
 export const updateUserByIdRepo = async (id, user) => Users.updateOne({ _id: id }, user);
 
 export const deleteUserByIdRepo = async (id) => Users.softDelete({ _id: id });
+
+// export const changePasswordUserByIdRepo = async (id, user) => Users.updateOne({ _id: id }, user);

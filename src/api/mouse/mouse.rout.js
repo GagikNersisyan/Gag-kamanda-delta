@@ -1,23 +1,27 @@
+
 import { Router } from 'express';
+
 import {
   getMousesController,
   getMouseByIdController,
   createMouseController,
-  updateMouseByIdController,
-  deleteMouseByIdController,
+  deleteMouseIdController,
+  updateMouseIdController,
 } from './mouse.controller.js';
+
 import { createMouseValidator, updateMouseValidator } from './mouse.validator.js';
+import { adminAuthorization } from '../../middlewares/authorization.js';
 
 const router = Router();
 
-router.get('/', getMousesController);
+router.get('/', adminAuthorization, getMousesController);
 
-router.get('/:id', getMouseByIdController);
+router.get('/:id', adminAuthorization, getMouseByIdController);
 
-router.post('/', ...createMouseValidator, createMouseController);
+router.post('/', adminAuthorization, ...createMouseValidator, createMouseController);
 
-router.put('/:id', ...updateMouseValidator, updateMouseByIdController);
+router.put('/:id', adminAuthorization, ...updateMouseValidator, updateMouseIdController);
 
-router.delete('/:id', deleteMouseByIdController);
+router.delete('/:id', adminAuthorization, deleteMouseIdController);
 
 export default router;

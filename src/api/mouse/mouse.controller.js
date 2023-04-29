@@ -1,40 +1,49 @@
+
 import {
-  createMouseService,
-  deleteMouseByIdService,
-  getMouseByIdService,
   getMousesService,
-  updateMouseByIdService,
+  getMouseByIdService,
+  deleteMouseIdService,
+  updateMouseIdService,
+  createMouseService,
 } from './mouse.service.js';
 
 export const getMousesController = async (req, res) => {
-  const Mouses = await getMousesService();
-  res.send(Mouses);
+  const mouses = await getMousesService();
+  res.send(mouses);
 };
 
-export const getMouseByIdController = async (req, res) => {
-  const Mouse = await getMouseByIdService(req.params.id);
-  res.send(Mouse);
+export const getMouseByIdController = async (req, res, next) => {
+  try {
+    const mouse = await getMouseByIdService(req.params.id);
+    res.send(mouse);
+  } catch (err) {
+    next(err);
+  }
 };
 
 export const createMouseController = async (req, res, next) => {
   try {
-    const Mouse = await createMouseService(req.body);
-    return res.send(Mouse);
+    const createMouse = await createMouseService(req.body);
+    res.send(createMouse);
   } catch (err) {
     next(err);
   }
 };
 
-export const updateMouseByIdController = async (req, res, next) => {
+export const deleteMouseIdController = async (req, res, next) => {
   try {
-    const Mouse = await updateMouseByIdService(req.params.id, req.body);
-    res.send(Mouse);
+    const deletedMouse = await deleteMouseIdService(req.params.id);
+    res.send(deletedMouse);
   } catch (err) {
     next(err);
   }
 };
 
-export const deleteMouseByIdController = async (req, res) => {
-  const Mouse = await deleteMouseByIdService(req.params.id);
-  res.send(Mouse);
+export const updateMouseIdController = async (req, res, next) => {
+  try {
+    const updatedMouse = await updateMouseIdService(req.params.id);
+    res.send(updatedMouse);
+  } catch (err) {
+    next(err);
+  }
 };

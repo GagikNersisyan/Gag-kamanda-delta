@@ -1,23 +1,26 @@
 import { Router } from 'express';
+
 import {
   getPcsController,
   getPcByIdController,
   createPcController,
-  updatePcByIdController,
   deletePcByIdController,
+  updatePcByIdController,
 } from './pc.controller.js';
+
 import { createPcValidator, updatePcValidator } from './pc.validator.js';
+import { adminAuthorization } from '../../middlewares/authorization.js';
 
 const router = Router();
 
-router.get('/', getPcsController);
+router.get('/', adminAuthorization, getPcsController);
 
-router.get('/:id', getPcByIdController);
+router.get('/:id', adminAuthorization, getPcByIdController);
 
-router.post('/', ...createPcValidator, createPcController);
+router.post('/', adminAuthorization, ...createPcValidator, createPcController);
 
-router.put('/:id', ...updatePcValidator, updatePcByIdController);
+router.put('/:id', adminAuthorization, ...updatePcValidator,updatePcByIdController);
 
-router.delete('/:id', deletePcByIdController);
+router.delete('/:id', adminAuthorization, deletePcByIdController);
 
 export default router;

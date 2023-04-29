@@ -1,3 +1,4 @@
+
 import {
   getLaptopsRepo,
   getLaptopByIdRepo,
@@ -5,6 +6,7 @@ import {
   updateLaptopByIdRepo,
   deleteLaptopByIdRepo,
 } from './laptop.repo.js';
+import { ServiceError } from '../../utils/error-handling.js';
 
 export const getLaptopsService = async () => {
   const got = await getLaptopsRepo(null, ['file']);
@@ -12,8 +14,11 @@ export const getLaptopsService = async () => {
 };
 
 export const getLaptopByIdService = async (id) => {
-  const got = await getLaptopByIdRepo(id, null, ['file']);
-  return got;
+  const getOne = await getLaptopByIdRepo(id, null, ['file']);
+  if (getOne == null || getOne.isDeleted) {
+    throw new ServiceError('Laptop not found', 403);
+  }
+  return getOne;
 };
 
 export const createLaptopService = async (laptop) => {
