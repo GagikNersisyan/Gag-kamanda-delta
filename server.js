@@ -18,9 +18,9 @@ const DB_URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}
 @delta.cfefhoj.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 mongoose.connect(DB_URL).then(() => console.log('Connected!'));
 
-if(!createSuperAdminSeed){
-  await createSuperAdminSeed();
-}
+// if(!createSuperAdminSeed){
+//   await createSuperAdminSeed();
+// }
 
 
 if (!fs.existsSync('./uploads')) {
