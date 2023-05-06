@@ -1,4 +1,5 @@
-import { createUserService } from './api/user/user.service.js';
+
+import { createUserService, getUserByRoleService } from './api/user/user.service.js';
 
 export const createSuperAdminSeed = async () => {
   const createSuperAdmin = {
@@ -11,7 +12,10 @@ export const createSuperAdminSeed = async () => {
     role: 'SUPER_ADMIN',
   };
   try {
-    await createUserService(createSuperAdmin);
+    const user = getUserByRoleService('SUPER_ADMIN');
+    if (user == null) {
+      await createUserService(createSuperAdmin);
+    }
   } catch (err) {
     console.log('SEED SUPER ADMIN', err.message);
   }

@@ -9,7 +9,7 @@ import {
 } from './pc.controller.js';
 
 import { createPcValidator, updatePcValidator } from './pc.validator.js';
-import { adminAuthorization } from '../../middlewares/authorization.js';
+import { adminAuthorization } from '../../middlewares/admin-authorization.js';
 
 const router = Router();
 

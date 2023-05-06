@@ -8,7 +8,7 @@ import {
   deleteSsdByIdController,
 } from './ssd.controller.js';
 import { createSsdValidator, updateSsdValidator } from './ssd.validator.js';
-import { adminAuthorization } from '../../middlewares/authorization.js';
+import { adminAuthorization } from '../../middlewares/admin-authorization.js';
 
 const router = Router();
 

@@ -1,3 +1,4 @@
+
 /* eslint-disable no-param-reassign */
 import { ServiceError } from '../../utils/error-handling.js';
 import {
@@ -7,6 +8,7 @@ import {
   createUserRepo,
   updateUserByIdRepo,
   deleteUserByIdRepo,
+  getUserByRoleRepo,
   // changePasswordUserByIdRepo,
 } from './user.repo.js';
 import { hashPassword } from '../../services/bcrypt.js';
@@ -16,17 +18,26 @@ export const getUsersService = async () => {
   return got;
 };
 
-export const getUserByIdService = async (id) => {
+export const getUserByIdOrFailService = async (id) => {
   const getOne = await getUserByIdRepo(id);
-  console.log('getOne___', getOne);
   if (getOne == null || getOne.isDeleted) {
     throw new ServiceError('User not found', 403);
   }
   return getOne;
 };
 
-export const getUserByEmailOrFailService = async (username) => {
-  const got = await getUserByEmailRepo(username);
+export const getUserByIdService = async (id) => {
+  const getOne = await getUserByIdRepo(id);
+  return getOne;
+};
+
+export const getUserByRoleService = async (role) => {
+  const getOne = await getUserByRoleRepo(role);
+  return getOne;
+};
+
+export const getUserByEmailOrFailService = async (email) => {
+  const got = await getUserByEmailRepo(email);
   if (got == null || got.isDeleted) {
     throw new ServiceError('User not found', 403);
   }
@@ -38,42 +49,20 @@ export const getUserByEmailService = async (username) => {
   return got;
 };
 
-export const createUserService = async (user) => {
-  const got = await getUserByEmailService(user.email);
-  if (got != null) {
-    throw new ServiceError('Email Exists', 403);
-  }
-  const password = hashPassword(user.password);
-  const created = await createUserRepo({
-    ...user,
-    password,
-  });
-  return created;
-};
-
 export const updateUserByIdService = async (id, user) => {
-  const getOne = await getUserByIdRepo(id);
-  if(getOne.role==='SUPER_ADMIN'){
-    console.log("You can not update SUPER ADMIN");
-  }
   const updated = await updateUserByIdRepo(id, user);
   return updated;
 };
 
-export const deleteUserByIdService = async (id) => {
-  const getOne = await getUserByIdRepo(id);
-  if(getOne.role==='SUPER_ADMIN'){
-    console.log("You can not delete SUPER ADMIN");
-  }
-  const deleted = await deleteUserByIdRepo(id);
-  return deleted;
-};
-
-export const createAdminService = async (user) => {
+export const createUserService = async (user) => {
   const got = await getUserByEmailService(user.email);
-  if (got != null) {
+  if (got != null && got.isDeleted) {
+    await updateUserByIdService(got.id, { isDeleted: false, deletedAt: null });
+    throw new ServiceError('You already have deleted account i revert it you can only signin', 403);
+  } else if (got != null) {
     throw new ServiceError('Email Exists', 403);
   }
+
   const password = hashPassword(user.password);
   const created = await createUserRepo({
     ...user,
@@ -81,3 +70,8 @@ export const createAdminService = async (user) => {
   });
   return created;
 };
+
+export const deleteUserByIdService = async (id,user) => {
+  const deleted = await deleteUserByIdRepo(id,user);
+  return deleted
+}

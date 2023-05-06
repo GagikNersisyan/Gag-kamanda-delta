@@ -8,7 +8,7 @@ import {
   deleteLaptopByIdController,
 } from './laptop.controller.js';
 import { createLaptopValidator, updateLaptopValidator } from './laptop.validator.js';
-import { adminAuthorization } from '../../middlewares/authorization.js';
+import { adminAuthorization } from '../../middlewares/admin-authorization.js';
 
 const router = Router();
 

@@ -7,7 +7,7 @@ import {
   deleteHddByIdController,
 } from './hdd.controller.js';
 import { createHddValidator, updateHddValidator } from './hdd.validator.js';
-import { adminAuthorization } from '../../middlewares/authorization.js';
+import { adminAuthorization } from '../../middlewares/admin-authorization.js';
 
 const router = Router();
 

@@ -8,7 +8,7 @@ import {
   deleteKeyboardByIdController,
 } from './keyboard.controller.js';
 import { createKeyboardValidator, updateKeyboardValidator } from './keyboard.validator.js';
-import { adminAuthorization } from '../../middlewares/authorization.js';
+import { adminAuthorization } from '../../middlewares/admin-authorization.js';
 
 const router = Router();
 

@@ -1,10 +1,11 @@
+
 /* eslint-disable import/no-unresolved */
 import {
   deleteUserByIdService,
-  getUserByIdService,
+  getUserByIdOrFailService,
   getUsersService,
   updateUserByIdService,
-  createAdminService
+  createUserService,
 } from './user.service.js';
 
 export const getUsersController = async (req, res) => {
@@ -14,7 +15,7 @@ export const getUsersController = async (req, res) => {
 
 export const getUserByIdController = async (req, res, next) => {
   try {
-    const user = await getUserByIdService(req.params.id);
+    const user = await getUserByIdOrFailService(req.params.id);
     res.send(user);
   } catch (err) {
     next(err);
@@ -23,31 +24,26 @@ export const getUserByIdController = async (req, res, next) => {
 
 export const updateUserByIdController = async (req, res, next) => {
   try {
-    const user = await updateUserByIdService(req.params.id, req.body);
+    const user = await updateUserByIdService(req.params.id, { ...req.body, role: 'ADMIN' });
     res.send(user);
   } catch (err) {
     next(err);
   }
 };
 
-export const changePasswordUserByIdController = async (req, res, next) => {
+export const deleteUserByIdController = async (req, res, next) => {
   try {
-    const user = await changePasswordUserByIdService(req.body, req.user);
+    const user = await deleteUserByIdService(req.params.id);
     res.send(user);
   } catch (err) {
     next(err);
   }
 };
 
-export const deleteUserByIdController = async (req, res) => {
-  const user = await deleteUserByIdService(req.params.id);
-  res.send(user);
-};
-
-export const createAdminController = async (req, res, next) => {
+export const createUserController = async (req, res, next) => {
   try {
-    const createAdmin = await createAdminService(req.body);
-    res.send(createAdmin);
+    const created = await createUserService({ ...req.body, role: 'ADMIN' });
+    res.send(created);
   } catch (err) {
     next(err);
   }

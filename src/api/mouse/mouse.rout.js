@@ -10,7 +10,7 @@ import {
 } from './mouse.controller.js';
 
 import { createMouseValidator, updateMouseValidator } from './mouse.validator.js';
-import { adminAuthorization } from '../../middlewares/authorization.js';
+import { adminAuthorization } from '../../middlewares/admin-authorization.js';
 
 const router = Router();
 

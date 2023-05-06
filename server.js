@@ -12,15 +12,16 @@ import PcsRouter from './src/api/pc/pc.rout.js';
 import filesRouter from './src/api/file/file.rout.js';
 import AuthRouter from './src/api/auth/auth.rout.js';
 import keyboardsRouter from './src/api/keyboard/keyboard.rout.js';
+import BagsRouter from './src/api/bag/bag.rout.js';
 import { createSuperAdminSeed } from './src/seeds.js';
 
 const DB_URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}
 @delta.cfefhoj.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 mongoose.connect(DB_URL).then(() => console.log('Connected!'));
 
-// if(!createSuperAdminSeed){
-//   await createSuperAdminSeed();
-// }
+
+await createSuperAdminSeed();
+
 
 
 if (!fs.existsSync('./uploads')) {
@@ -43,6 +44,7 @@ app.use('/Pcs',PcsRouter);
 app.use('/files', filesRouter);
 app.use('/Auth', AuthRouter);
 app.use('/Keyboards', keyboardsRouter);
+app.use('/Bags',BagsRouter)
 // eslint-disable-next-line no-unused-vars
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {

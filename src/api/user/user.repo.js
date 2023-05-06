@@ -1,4 +1,3 @@
-
 import { Users } from './user.entity.js';
 
 export const getUsersRepo = async (projection, populate) =>
@@ -6,6 +5,9 @@ export const getUsersRepo = async (projection, populate) =>
 
 export const getUserByIdRepo = async (id, projection, populate) =>
   Users.findOne({ _id: id }, projection, { populate });
+
+export const getUserByRoleRepo = async (role, projection, populate) =>
+  Users.findOne({ role }, projection, { populate });
 
 export const getUserByUsernameRepo = async (email, projection) =>
   Users.findOne({ email }, projection);
