@@ -7,3 +7,7 @@ export const hashPassword = (password) => {
 
 export const comparePassword = (loginPassword, userPassword) =>
   bcrypt.compare(loginPassword, userPassword);
+
+
+export const compareNewPassword = (userNewPassword, userPassword) =>
+  bcrypt.compare(userNewPassword, userPassword);

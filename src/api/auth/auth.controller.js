@@ -13,8 +13,8 @@ export const signupController = async (req, res, next) => {
 
 export const signinController = async (req, res, next) => {
   try {
-    const pc = await signinService(req.body);
-    return res.send(pc);
+    const user = await signinService(req.body);
+    return res.send(user);
   } catch (err) {
     next(err);
   }

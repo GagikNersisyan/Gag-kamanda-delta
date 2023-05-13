@@ -12,8 +12,9 @@ const Bag = new Schema({
   ram: { type: Schema.Types.ObjectId, ref: 'Ram' },
   case: { type: Schema.Types.ObjectId, ref: 'Case' },
   ssd: { type: Schema.Types.ObjectId, ref: 'Ssd' },
-  pc: { type: Schema.Types.ObjectId, ref: 'Pc' }
-},OPTIONS);
+  pc: { type: Schema.Types.ObjectId, ref: 'Pc' },
+  user: { type: Schema.Types.ObjectId, ref: 'User' }
+}, OPTIONS);
 
 Bag.plugin(softDeletePlugin);
 

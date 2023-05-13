@@ -12,6 +12,7 @@ import {
   // changePasswordUserByIdRepo,
 } from './user.repo.js';
 import { hashPassword } from '../../services/bcrypt.js';
+import { compareNewPassword } from '../../services/bcrypt.js';
 
 export const getUsersService = async () => {
   const got = await getUsersRepo();
@@ -71,7 +72,29 @@ export const createUserService = async (user) => {
   return created;
 };
 
-export const deleteUserByIdService = async (id,user) => {
-  const deleted = await deleteUserByIdRepo(id,user);
+export const deleteUserByIdService = async (id, user) => {
+  const deleted = await deleteUserByIdRepo(id, user);
   return deleted
-}
+};
+
+export const changePasswordService = async (id, user) => {
+  const got = await getUserByIdRepo(id);
+  if (got == null || got.isDeleted) {
+    throw new ServiceError('User not found', 403);
+  }
+  if (!(await compareNewPassword(user.newPassword, user.password))) {
+    throw new ServiceError('unauthorized', 401);
+  }
+
+  const newPassword = hashPassword(user.newPassword);
+
+  const updated = await updateUserByIdRepo(id, user)({
+    ...user,
+    newPassword
+  }
+  );
+  return updated;
+};
+
+
+

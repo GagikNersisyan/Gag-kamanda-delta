@@ -69,3 +69,16 @@ export const createAdminAsSuperAdminValidator = [
     .withMessage(GENERAL_ERRORS.oneOf(['admin'])),
   validationResultMiddleware,
 ];
+
+
+export const changePasswordValidator = [
+  body('password').notEmpty().withMessage(GENERAL_ERRORS.isRequired('Password'))
+  .isString()
+  .withMessage(GENERAL_ERRORS.isString)
+  .isStrongPassword(),
+  body('NewPassword').notEmpty().withMessage(GENERAL_ERRORS.isRequired('NewPassword'))
+  .isString()
+  .withMessage(GENERAL_ERRORS.isString)
+  .isStrongPassword(),
+validationResultMiddleware,
+]
