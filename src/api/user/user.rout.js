@@ -5,6 +5,7 @@ import {
   updateUserByIdController,
   deleteUserByIdController,
   createUserController,
+  changePasswordController
 } from './user.controller.js';
 import { updateUserAsAdminValidator, createUserValidator,changePasswordValidator } from './user.validator.js';
 import { adminAuthorization } from '../../middlewares/admin-authorization.js';
@@ -22,6 +23,6 @@ router.put('/:id', adminAuthorization, ...updateUserAsAdminValidator, updateUser
 
 router.delete('/:id', adminAuthorization, deleteUserByIdController);
 
-router.put('/:id', clientAuthorization, ...changePasswordValidator, updateUserByIdController);
+router.put('/:id', clientAuthorization, ...changePasswordValidator, changePasswordController);
 
 export default router;
