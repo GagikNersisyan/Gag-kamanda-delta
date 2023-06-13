@@ -21,13 +21,13 @@ export const getHddByIdService = async (id) => {
   return getOne;
 };
 
-export const createHddService = async (cpu) => {
-  const created = await createHddRepo(cpu);
+export const createHddService = async (hdd) => {
+  const created = await createHddRepo(hdd);
   return created;
 };
 
-export const updateHddByIdService = async (id, cpu) => {
-  const updated = await updateHddByIdRepo(id, cpu);
+export const updateHddByIdService = async (id, hdd) => {
+  const updated = await updateHddByIdRepo(id, hdd);
   return updated;
 };
 

@@ -21,13 +21,13 @@ export const getKeyboardByIdService = async (id) => {
   return getOne;
 };
 
-export const createKeyboardService = async (laptop) => {
-  const created = await createKeyboardRepo(laptop);
+export const createKeyboardService = async (keyboard) => {
+  const created = await createKeyboardRepo(keyboard);
   return created;
 };
 
-export const updateKeyboardByIdService = async (id, laptop) => {
-  const updated = await updateKeyboardByIdRepo(id, laptop);
+export const updateKeyboardByIdService = async (id, keyboard) => {
+  const updated = await updateKeyboardByIdRepo(id, keyboard);
   return updated;
 };
 

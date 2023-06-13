@@ -1,5 +1,5 @@
 
-import { Cases } from './Case.entity.js';
+import { Cases } from './case.entity.js';
 
 export const getCasesRepo = async (projection, populate) =>
   Cases.find({}, projection, { populate });
